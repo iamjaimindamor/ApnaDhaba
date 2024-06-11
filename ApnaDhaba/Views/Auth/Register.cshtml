@@ -1,0 +1,154 @@
+﻿@model ApnaDhaba.Api_Models.UserModel;
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        .row {
+            width: 100%
+        }
+        /* Orange */
+        .orange {
+            border-color: #F28123;
+            color: #F28123;
+        }
+
+            .orange:hover {
+                background: #F28123;
+                color: white;
+            }
+
+        /* Gray */
+        .default {
+            border-color: black;
+            color: black;
+        }
+
+            .default:hover {
+                background: #1f1f1f;
+                color: snow;
+            }
+
+    </style>
+</head>
+
+<body style="overflow: hidden;">
+
+    <br />
+
+    <div class="row-cols-auto">
+     
+        <div class="row">
+          
+            <div class="col-sm-5" style="padding-left:60px">
+                <a asp-action="Login" asp-controller="Auth">
+                    <i style="font-size:36px; color:black; padding-bottom:15px;" class="fa">&#xf0a8;</i>
+                </a>
+                <h4 style="font-family:Poppins,sans-serif; font-weight:640; font-size:3rem">
+
+                    User<br />
+                    <span style="color:#F28123; font-family:Poppins,sans-serif font-weight:640; font-size:3rem;">
+                        Registration
+                    </span>
+                </h4>
+
+                @{
+                    if (TempData["RegisterSuccess"] != null)
+                    {
+                        <div class="col-lg-9 alert alert-success" role="alert">
+                            @TempData["RegisterSuccess"]
+                            <br />
+                          >>><a asp-action="Login" asp-controller="Auth" class="link-success"> Continue To Login</a>
+                        </div>
+                                        
+                    }
+                }
+
+                @{
+                    if (TempData["confirmPasswordFailed"] != null)
+                    {
+                        <div class="col-lg-9 alert alert-danger" role="alert">
+                            @TempData["confirmPasswordFailed"]
+                        </div>
+                    }
+                }
+                  
+                <form class="form-control d-grid mx-auto" method="post">
+
+                    <div class="row">
+                        <div class="col">
+                            <label asp-for=Firstname class="form-label">
+                            <b>Firstname</b>
+                            </label>
+                            <input asp-for="Firstname" type="text" class="form-control" placeholder="Firstname" />
+                            <span asp-validation-for="Firstname" style="color:red"></span>
+                        </div>
+
+                        <div class="col">
+                            <label asp-for=Lastname class="form-label">
+                                <b>Lastname</b>
+                            </label>
+                            <input asp-for=Lastname type="text" class="form-control" placeholder="Lastname" />
+                            <span asp-validation-for="Lastname" style="color:red"></span>
+                        </div>
+
+                    </div>
+                    <br />
+                    <label asp-for=Username class="form-label">
+                        <b>Username</b>
+                    </label>
+                    <input asp-for="Username" type="text" class="form-control" placeholder="Enter Username" />
+                    <span asp-validation-for="Username" style="color:red"></span>
+                    <br />
+                    <label asp-for=Password class="form-label">
+                        <b>Password</b>
+                    </label>
+                    <input asp-for=Password type="password" class="form-control" placeholder="Enter Password" />
+                    <span asp-validation-for="Password" style="color:red"></span>
+                    <br />
+                    <label for="confirmPassword" class="form-label">
+                        <b>Confirm Password</b>
+                    </label>
+                    <input id="confirmPassword" name="confirmPassword" type="password" class="form-control" placeholder="Enter Confirm Password" />
+                    <span validation-for="confirmPassword" style="color:red"></span>
+                    <br />
+                    <input asp-for=CreateDate type="hidden" value=@DateTime.Now />
+                    <br />
+                    <input type="submit" class="btn orange btn-block" value="Sign Up" />
+                    <br />
+                    <button formmethod="get" asp-action="Login" asp-controller="Auth" class="btn default btn-block">Already a User? Login</button>
+                    <br />
+
+                </form>
+
+            </div>
+            <div class="col" style="padding-left:190px; padding-top:70px">
+
+                <span>
+                    <img src="~/img/Sign up-amico.png" width="600px" height="600px" />
+                </span>
+
+            </div>
+        </div>
+    </div>
+</body>
+
+<footer>
+
+
+
+    <div class="d-flex justify-content-center">
+        <p>
+            <b>
+                Crafted With
+                <span style="color:#F28123; "><span style="color:#DC143C">&hearts; </span>by Jaimin</span>
+        </b>
+        </p>
+    </div>
+
+</footer>
+</html>

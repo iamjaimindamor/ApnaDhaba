@@ -1,0 +1,387 @@
+﻿@model MultiModel
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Responsive Bootstrap4 Shop Template, Created by Imran Hossain from https://imransdesign.com/">
+
+    <!-- title -->
+    <title>Cart</title>
+
+    <!-- favicon -->
+    <link rel="shortcut icon" type="image/png" href="~/img/favicon.png">
+    <!-- google font -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">
+    <!-- fontawesome -->
+    <link rel="stylesheet" href="~/css/all.min.css">
+    <!-- bootstrap -->
+    <link rel="stylesheet" href="~/bootstrap/css/bootstrap.min.css">
+    <!-- owl carousel -->
+    <link rel="stylesheet" href="~/css/owl.carousel.css">
+    <!-- magnific popup -->
+    <link rel="stylesheet" href="~/css/magnific-popup.css">
+    <!-- animate css -->
+    <link rel="stylesheet" href="~/css/animate.css">
+    <!-- mean menu css -->
+    <link rel="stylesheet" href="~/css/meanmenu.min.css">
+    <!-- main style -->
+    <link rel="stylesheet" href="~/css/main.css">
+    <!-- responsive -->
+    <link rel="stylesheet" href="~/css/responsive.css">
+
+    <style>
+        input[type="submit"] {
+            background-color: #FFF;
+            color: black;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 15px;
+            border: none !important;
+            cursor: pointer;
+            padding: 9px 10px;
+            border-radius: 3px;
+        }
+
+            input[type="submit"]:hover {
+                background-color: #F28123;
+                color: snow;
+            }
+    </style>
+
+</head>
+<body>
+
+    <!-- header -->
+    <div class="top-header-area" id="sticker">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 col-sm-12 text-center">
+                    <div class="main-menu-wrap">
+                        <!-- logo -->
+                        <div class="site-logo">
+                            <a href="index.html">
+                                <img src="img/apna_logo_zoom.png" alt="">
+                            </a>
+                        </div>
+                        <!-- logo -->
+                        @{
+                            if (TempData["Payment"] != null)
+                            {
+                                <div class="alert alert-success text-center justify-content-center" style="padding-top:10px" role="alert">
+                                    @TempData["Payment"]
+                                </div>
+
+                            }
+                        }
+                        <!-- menu start -->
+                        <nav class="main-menu">
+                            <ul>
+                                <li>
+                                    <a asp-action="Index" asp-controller="Home">Home</a>
+                                </li>
+
+                                <li>
+                                    <a asp-action="Menu" asp-controller="Home">Menu</a>
+                                </li>
+                                <li><a asp-action="About" asp-controller="Home">About</a></li>
+
+                                <li>
+                                    <div class="header-icons">
+                                        <a class="shopping-cart" asp-action="UserProfile" asp-controller="Home">
+                                            <i class="fas fa-regular fa-user"></i>
+                                        </a>
+                                        @{
+                                            if (ViewData["AuthUser"] != null)
+                                            {
+                                                <ul class="sub-menu">
+                                                    <li><a asp-action="UserProfile" asp-controller="Home">User Profile (<i>@ViewData["AuthUser"])</i></a></li>
+                                                    <li><a asp-action="LogOut" asp-controller="Home">Log Out</a></li>
+                                                </ul>
+                                            }
+                                        }
+                                        <a class="shopping-cart btn-link" asp-action="Cart" asp-controller="Home"><i class="fas fa-shopping-cart" style="color:#F28123"></i></a>
+                                        <a class="mobile-hide search-bar-icon" href="#"><i class="fas fa-search"></i></a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </nav>
+                        <a class="mobile-show search-bar-icon" href="#"><i class="fas fa-search"></i></a>
+                        <div class="mobile-menu"></div>
+                        <!-- menu end -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end header -->
+    <!-- search area -->
+    <div class="search-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <span class="close-btn"><i class="fas fa-window-close"></i></span>
+                    <div class="search-bar">
+                        <div class="search-bar-tablecell">
+                            <h3>Search For:</h3>
+                            <input type="text" placeholder="Keywords">
+                            <button type="submit">Search <i class="fas fa-search"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end search area -->
+    <!-- breadcrumb-section -->
+    <div class="breadcrumb-section breadcrumb-bg">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 offset-lg-2 text-center">
+                    <div class="breadcrumb-text">
+                        <p>You are one Click Away from fulfilling you cravings</p>
+                        <h1>Cart</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end breadcrumb section -->
+    @{
+        if (ViewBag.CartEmpty != null)
+        {<div class="d-flex justify-content-center text-center">
+
+        <img src="~/assets/images/Cat astronaut-cuate.png" width="550px" height="550px"/>
+                <h4 style="font-family:Poppins,sans-serif; font-weight:640; font-size:2.5rem; padding-top:260px; padding-left:20px">
+                    <b>
+                        Cart
+                        <span style="color:#F28123; font-family:Poppins,sans-serif font-weight:640; font-size:2.5rem;">
+                            Is Empty!
+                        </span>
+                    </b>
+                </h4>
+            </div>
+               
+             
+            
+
+        }
+        else
+        {
+            <!-- cart -->
+            <div class="cart-section mt-150 mb-150">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-8 col-md-12">
+                            @{
+                                if (TempData["Limit"] != null)
+                                {
+                                    <div class="alert alert-warning text-center justify-content-center" role="alert">
+                                        @TempData["Limit"]
+                                    </div>
+                                }
+                            }
+                            <div class="cart-table-wrap">
+                                <table class="cart-table">
+                                    <thead class="cart-table-head">
+                                        <tr class="table-head-row">
+                                            <th class="product-remove"></th>
+                                            <th class="product-image">Item Image</th>
+                                            <th class="product-name">Name</th>
+                                            <th class="product-price">Item Price</th>
+                                            <th class="product-quantity">Quantity</th>
+                                            <th class="product-quantity">Update Quantity</th>
+                                            <th class="product-quantity">Total Item ₹ </th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @{
+                                            foreach (var i in Model.cart)
+                                            {
+                                                foreach (var j in Model.Products)
+                                                {
+                                                    if (i.ProductId == j.ProductId)
+                                                    {
+                                                        <tr class="table-body-row">
+                                                            <td class="product-remove"><a asp-action="RCare" asp-controller="Home" asp-route-id=@j.ProductId><i class="far fa-window-close"></i></a></td>
+                                                            <td class="product-image"><img src=~/Menu/@j.ImagUrl alt=""></td>
+                                                            <td class="product-name">@j.Name</td>
+                                                            <td class="product-price">₹@j.Price</td>
+                                                            <td class="product-quantity">
+                                                                @i.Quantity
+                                                            </td>
+                                                            <td class="product-total">
+                                                                <form id="@i.CartId" method="post">
+                                                                    <input type="hidden" id="id" name="id" value="@j.ProductId" />
+                                                                    <input type="hidden" id="quant" name="quant" placeholder="0" value="@i.Quantity" />
+                                                                    <input type="submit" style="fit-content" value="-" asp-action="min" asp-controller="Home" class="justify-content-center btn" />
+
+                                                                    <input type="text" style="width:35px; height:50px" value="@i.Quantity" id="q" disabled />
+                                                                    <input type="submit" class="btn justify-content-center" style="fit-content" value="+" asp-action="plus" />
+                                                                </form>
+                                                            </td>
+
+
+                                                            <td class="product-total">
+                                                                ₹ @i.TotalPrice
+
+                                                            </td>
+
+
+
+                                                        </tr>
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4">
+                            <div class="total-section">
+                                <table class="total-table">
+                                    <thead class="total-table-head">
+                                        <tr class="table-total-row">
+                                            <th>Total</th>
+                                            <th>Price</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @{
+                                            if (ViewBag.Subtotal != null)
+                                            {
+                                                <tr class="total-data">
+                                                    <td><strong>Subtotal: </strong></td>
+                                                    <td>₹ @ViewBag.Subtotal </td>
+                                                </tr>
+                                                <tr class="total-data">
+                                                    <td><strong>Shipping:</strong></td>
+                                                    <td>₹ 40.00</td>
+                                                </tr>
+                                                <tr class="total-data">
+                                                    <td><strong>Total: </strong></td>
+                                                    <td>₹ @ViewBag.Total</td>
+                                                </tr>
+                                            }
+                                        }
+
+                                    </tbody>
+                                </table>
+                                <div class="cart-buttons justify-content-center">
+                                    <form asp-action="Checkout" asp-controller="Home">
+                                        <input type="submit" value="Checkout Cart" class="justify-content-center" />
+                                    </form>
+                                </div>
+                            </div>
+
+                            <div class="coupon-section">
+                                <h3>Apply Coupon</h3>
+                                <div class="coupon-form-wrap">
+                                    <form method="post">
+                                        <p><input type="text" id="coupon" name="coupon" placeholder="Coupon"></p>
+                                        <p><input type="submit" value="Apply"></p>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+
+    }
+    <!-- end cart -->
+    <!-- footer -->
+    <div class="footer-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-6">
+                    <div class="footer-box about-widget">
+                        <h2 class="widget-title">About us</h2>
+
+                        <p>ASP.NET Project By Jaimin Damor &copy;ApnaDhaba</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="footer-box get-in-touch">
+                        <h2 class="widget-title">Get in Touch</h2>
+                        <ul>
+                            <li>Gandhinagar</li>
+                            <li>iamjaimindamor</li>
+                            <li>+9196648922222</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="footer-box pages">
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="footer-box subscribe">
+                        <h2 class="widget-title">Subscribe</h2>
+                        <p>Subscribe to our mailing list to get the latest updates.</p>
+                        <form action="index.html">
+                            <input type="email" placeholder="Email">
+                            <button type="submit"><i class="fas fa-paper-plane"></i></button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end footer -->
+    <!-- copyright -->
+    <div class="copyright">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-md-12">
+                    <p>
+                        Crafted With &hearts; in Gandhinagar By - <a href="https://github.com/iamjaimindamor">Jaimin Damor</a>
+
+                    </p>
+                </div>
+                <div class="col-lg-6 text-right col-md-12">
+                    <div class="social-icons">
+                        <ul>
+                            <li><a href="#" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
+                            <li><a href="#" target="_blank"><i class="fab fa-twitter"></i></a></li>
+                            <li><a href="#" target="_blank"><i class="fab fa-instagram"></i></a></li>
+                            <li><a href="#" target="_blank"><i class="fab fa-linkedin"></i></a></li>
+                            <li><a href="#" target="_blank"><i class="fab fa-dribbble"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end copyright -->
+    <!-- jquery -->
+    <script src="js/jquery-1.11.3.min.js"></script>
+    <!-- bootstrap -->
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+    <!-- count down -->
+    <script src="js/jquery.countdown.js"></script>
+    <!-- isotope -->
+    <script src="js/jquery.isotope-3.0.6.min.js"></script>
+    <!-- waypoints -->
+    <script src="js/waypoints.js"></script>
+    <!-- owl carousel -->
+    <script src="js/owl.carousel.min.js"></script>
+    <!-- magnific popup -->
+    <script src="js/jquery.magnific-popup.min.js"></script>
+    <!-- mean menu -->
+    <script src="js/jquery.meanmenu.min.js"></script>
+    <!-- sticker js -->
+    <script src="js/sticker.js"></script>
+    <!-- main js -->
+    <script src="js/main.js"></script>
+
+</body>
+</html>

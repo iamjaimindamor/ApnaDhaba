@@ -1,0 +1,478 @@
+﻿@model dualModel
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- title -->
+    <title>Apna Dhaba</title>
+
+    <!-- favicon -->
+    <link rel="shortcut icon" type="image/png" href="img/favicon.png">
+    <!-- google font -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">
+    <!-- fontawesome -->
+    <link rel="stylesheet" href="css/all.min.css">
+    <!-- bootstrap -->
+    <!-- owl carousel -->
+    <link rel="stylesheet" href="css/owl.carousel.css">
+    <!-- magnific popup -->
+    <link rel="stylesheet" href="css/magnific-popup.css">
+    <!-- animate css -->
+    <link rel="stylesheet" href="css/animate.css">
+    <!-- mean menu css -->
+    <link rel="stylesheet" href="css/meanmenu.min.css">
+    <!-- main style -->
+    <link rel="stylesheet" href="css/main.css">
+    <!-- responsive -->
+    <link rel="stylesheet" href="css/responsive.css">
+    <style>
+        .orange {
+            border-color: #F28123;
+            color: #F28123;
+        }
+
+            .orange:hover {
+                background: #F28123;
+                color: white;
+            }
+    </style>
+</head>
+<body class="invisible-scrollbar">
+
+    <!--PreLoader-->
+    <div class="loader">
+        <div class="loader-inner">
+            <div class="circle"></div>
+        </div>
+    </div>
+    <!--PreLoader Ends-->
+
+    <!-- header -->
+    <div class="top-header-area" id="sticker">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 col-sm-12 text-center">
+                    @{
+                        if (TempData["Payment"] != null)
+                        {
+                            <div class="alert alert-success" style="padding-top:10px; width:450px" role="alert">
+                                <strong>@TempData["Payment"]</strong>
+                            </div>
+
+                        }
+                    }
+                    <div class="main-menu-wrap">
+                        <!-- logo -->
+                        <div class="site-logo">
+                            <a asp-action="Index" asp-controller="Home">
+                                <img src="img/apna_logo_zoom.png" alt="ApnaDhabaLogo">
+                            </a>
+                        </div>
+                        <!-- logo -->
+                
+                        <!-- menu start -->
+                        <nav class="main-menu">
+                            <ul>
+                                <li class="current-list-item">
+                                    <a asp-action="Index" asp-controller="Home" >Home</a>
+                                </li>
+                                
+                                <li>
+                                    <a asp-action="Menu" asp-controller="Home">Menu</a>
+                                </li>
+                                <li><a asp-action="About" asp-controller="Home">About</a></li>
+
+                                <li>
+                                    <div class="header-icons">
+                                        <a class="shopping-cart" asp-action="UserProfile" asp-controller="Home">
+                                            <i class="fas fa-regular fa-user"></i>
+                                        </a> 
+                                            @{if(ViewData["AuthUser"]!=null){
+                                        <ul class="sub-menu">
+                                                    <li><a asp-action="UserProfile" asp-controller="Home">User Profile (<i>@ViewData["AuthUser"])</i></a></li>
+                                            <li><a asp-action="LogOut" asp-controller="Home">Log Out</a></li>
+                                        </ul>
+                                                }
+                                            }
+                                        <a class="shopping-cart btn-link" asp-action="Cart" asp-controller="Home"><i class="fas fa-shopping-cart"></i></a>
+                                        <a class="mobile-hide search-bar-icon" href="#"><i class="fas fa-search"></i></a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </nav>
+                        <a class="mobile-show search-bar-icon" href="#"><i class="fas fa-search"></i></a>
+                        <div class="mobile-menu"></div>
+                        <!-- menu end -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end header -->
+    <!-- search area -->
+    <div class="search-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <span class="close-btn"><i class="fas fa-window-close"></i></span>
+                    <div class="search-bar">
+                        <div class="search-bar-tablecell">
+                            <h3>Search For:</h3>
+                            <input type="text" placeholder="Keywords">
+                            <button type="submit">Search <i class="fas fa-search"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end search area -->
+    
+    <!-- home page slider -->
+    <div class="homepage-slider">
+        <!-- single home slider -->
+        <div class="single-homepage-slider homepage-bg-1">
+            <div class="container">
+                <div class="row">
+
+                    <div class="col-md-12 col-lg-7 offset-lg-1 offset-xl-0">
+                        <div class="hero-text">
+                            <div class="hero-text-tablecell">
+                                <p class="subtitle">Authentic Indian Taste</p>
+                                <h1>Delicious Indian Cuisine</h1>
+                                <div class="hero-btns">
+                                    <a asp-action="Menu" asp-controller="Home" class="boxed-btn">Explore Menu</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- single home slider -->
+        <div class="single-homepage-slider homepage-bg-2">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-10 offset-lg-1 text-center">
+                        <div class="hero-text">
+                            <div class="hero-text-tablecell">
+                                <p class="subtitle">Dhaba Style Food </p>
+                                <h1>At Your Doorstep</h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- single home slider -->
+        <div class="single-homepage-slider homepage-bg-3">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-10 offset-lg-1 text-right">
+                        <div class="hero-text">
+                            <div class="hero-text-tablecell">
+                                <p class="subtitle">Summer Specials</p>
+                                <h1>Replenishing Cold Drinks available this Summer</h1>
+                                <div class="hero-btns">
+                                    <a asp-action="Menu" asp-controller="Home" class="boxed-btn">Explore Drinks</a>
+                                   
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end home page slider -->
+    <!-- product section -->
+    <div class="product-section mt-150 mb-150">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 offset-lg-2 text-center">
+                    <div class="section-title">
+                        <h3><span class="orange-text">Our</span> Products</h3>
+                        <p>Must Try</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+
+                @{
+                    List<Product>? m = Model.dualProductList;
+                    List<Category>? c = Model.dualCatList;
+                    int count = 0;
+
+                    foreach (var i in m)
+                    {
+                        count++;
+                        if (count == 4)
+                        {
+                            break;
+                        }
+
+                       foreach (var y in c)
+                        {
+
+                            if (i.CategoryId == y.CategoryId)
+                            {
+                                <div class="col-lg-4 col-md-6 text-center">
+                                    <div class="single-product-item">
+                                        <div class="product-image">
+                                            <a href="#"><img width="100px" height="270px" src="~/Menu/@i.ImagUrl"></img></a>
+                                        </div>
+                                        <h3>@i.Name</h3>
+                                        <p class="product-price"><span></span> @i.Price ₹ </p>
+                                        <form method="post" asp-action="Menu">
+                                            <input type="hidden" asp-for=dualProduct.ProductId value="@i.ProductId" />
+                                            <input type="hidden" asp-for=dualProduct.Name value="@i.Name" />
+                                            <input type="submit" class="btn btn-block orange" value="Add To Cart">
+                                        </form>
+                                    </div>
+                                </div>
+                            }
+                        }
+                    }
+                }
+
+
+            </div>
+        </div>
+    </div>
+
+    <div class="testimonail-section mt-150 mb-150">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-10 offset-lg-1 text-center">
+                    <div class="testimonial-sliders">
+                        <div class="single-testimonial-slider">
+                            <div class="client-avater">
+                            </div>
+                            <div class="client-meta">
+                                <h3>Aryan Zala <span>Business Analyst</span></h3>
+                                <p class="testimonial-body">
+                                    Great design!!, All the work done in Backend seems great....
+                                </p>
+                                <div class="last-icon">
+                                    <i class="fas fa-quote-right"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="single-testimonial-slider">
+                            <div class="client-avater">
+                            </div>
+                            <div class="client-meta">
+                                <h3>Kuldip<span>AI/ML Enthusiast</span></h3>
+                                <p class="testimonial-body">
+                                    "Amazing Website &hearts; "
+                                </p>
+                                <div class="last-icon">
+                                    <i class="fas fa-quote-right"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="single-testimonial-slider">
+                            <div class="client-avater">
+                            </div>
+                            <div class="client-meta">
+                                <h3>Rohit<span>Game Developer</span></h3>
+                                <p class="testimonial-body">
+                                    "This is the way ~Mando"
+                                </p>
+                                <div class="last-icon">
+                                    <i class="fas fa-quote-right"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="single-testimonial-slider">
+                            <div class="client-avater">
+                            </div>
+                            <div class="client-meta">
+                                <h3>Naineel<span>Tech Geek</span></h3>
+                                <p class="testimonial-body">
+                                    "Nice Work &hearts;"
+                                </p>
+                                <div class="last-icon">
+                                    <i class="fas fa-quote-right"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end testimonail-section -->
+    <!-- advertisement section -->
+    <div class="abt-section mb-150">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-md-12">
+                    <div class="abt-bg">
+                        <a href="https://www.youtube.com/watch?v=YR12Z8f1Dh8" class="video-play-btn popup-youtube"><i class="fas fa-play"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-12">
+                    <div class="abt-text">
+                        <p class="top-sub">Created with &hearts; by Jaimin <br /><i>(L.D. Student)</i></p>
+                        <h2>Namaste! <span class="orange-text">From ApnaDhaba </span></h2>
+
+                        <ul>
+                            <li>
+                                <p>
+                                    This Website is created as Final Year Project using Bootstrap , ASP.NET Core v8.0 for Backend with Microsoft SQL Server.
+                            </li>
+                            <li>
+
+                                Amazing Features are used for management of Database like EntityFramework Core.
+                            </li>
+                            <li>
+                                Secured the Application with Identity Framework for Authenticaton And Authorizations with JWT Tokens.
+                                </p>
+                            </li>
+                            <li>
+                                <p>The Goal of this project is to sharpen my developing skill and harden the concept of C# , ASP.NET Core </p>
+                            </li>
+                        </ul>
+                        <a asp-action="About" asp-controller="Home" class="boxed-btn mt-4">know more</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- footer -->
+    <div class="footer-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-6">
+                    <div class="footer-box about-widget">
+                        <h2 class="widget-title">About us</h2>
+                        
+                        <p>ASP.NET Project By Jaimin Damor &copy;ApnaDhaba</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="footer-box get-in-touch">
+                        <h2 class="widget-title">Get in Touch</h2>
+                        <ul>
+                            <li>Gandhinagar</li>
+                            <li>iamjaimindamor</li>
+                            <li>+9196648922222</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="footer-box pages">
+                     
+                    
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="footer-box subscribe">
+                        <h2 class="widget-title">Subscribe</h2>
+                        <p>Subscribe to our mailing list to get the latest updates.</p>
+                        <form action="index.html">
+                            <input type="email" placeholder="Email">
+                            <button type="submit"><i class="fas fa-paper-plane"></i></button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end footer -->
+    <!-- copyright -->
+    <div class="copyright">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-md-12">
+                    <p>
+                        Crafted With &hearts; in Gandhinagar By - <a href="https://github.com/iamjaimindamor">Jaimin Damor</a>
+
+                    </p>
+                </div>
+                <div class="col-lg-6 text-right col-md-12">
+                    <div class="social-icons">
+                        <ul>
+                            <li><a href="#" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
+                            <li><a href="#" target="_blank"><i class="fab fa-twitter"></i></a></li>
+                            <li><a href="#" target="_blank"><i class="fab fa-instagram"></i></a></li>
+                            <li><a href="#" target="_blank"><i class="fab fa-linkedin"></i></a></li>
+                            <li><a href="#" target="_blank"><i class="fab fa-dribbble"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end copyright -->
+    <!-- jquery -->
+    <script src="js/jquery-1.11.3.min.js"></script>
+    <!-- bootstrap -->
+    <!-- count down -->
+    <script src="js/jquery.countdown.js"></script>
+    <!-- isotope -->
+    <script src="js/jquery.isotope-3.0.6.min.js"></script>
+    <!-- waypoints -->
+    <script src="js/waypoints.js"></script>
+    <!-- owl carousel -->
+    <script src="js/owl.carousel.min.js"></script>
+    <!-- magnific popup -->
+    <script src="js/jquery.magnific-popup.min.js"></script>
+    <!-- mean menu -->
+    <script src="js/jquery.meanmenu.min.js"></script>
+    <!-- sticker js -->
+    <script src="js/sticker.js"></script>
+    <!-- main js -->
+    <script src="js/main.js"></script>
+    @{
+        if (TempData["Guest"] != null)
+        {
+            <script>
+
+                window.onload = (event) => {
+                    setTimeout(myFunction, 50000);
+                };
+
+
+                function myFunction() {
+                    if (confirm("Press OK to Login or Cancel to Continue as Guest")) {
+
+                        window.location = "https://localhost:7049/auth/login"
+                    }
+
+                };
+
+            </script>
+        }
+    }
+    <script>
+        window.setTimeout(function () {
+        $(".alert").fadeTo(500, 0).slideUp(500, function () {
+        $(this).remove();
+        });
+        }, 2825);
+    </script>
+  
+
+    @{
+        if (TempData["LoggedOut"] != null)
+        {
+            <script>
+
+                alert("User Logged Out ! ! !");
+            </script>
+        }
+    }
+
+</body>
+</html>

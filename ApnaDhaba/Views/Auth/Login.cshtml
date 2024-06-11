@@ -1,0 +1,138 @@
+﻿@model ApnaDhaba.Models.Other.LoginRequest
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        .form-control {
+            width: 455px;
+            position: static
+        }
+
+        .login {
+            padding-left: 75px;
+        }
+
+        .orange {
+            border-color: #F28123;
+            color: #F28123;
+        }
+
+            .orange:hover {
+                background: #F28123;
+                color: white;
+            }
+
+        .default {
+            border-color: black;
+            color: black;
+        }
+
+            .default:hover {
+                background: #1f1f1f;
+                color: snow;
+            }
+    </style>
+    <script>
+
+        window.setTimeout(function () {
+            $(".alert").fadeTo(500, 0).slideUp(500, function () {
+                $(this).remove();
+            });
+        }, 2825);
+    </script>
+</head>
+
+<body style="overflow: hidden;">
+
+    
+    <div class="text-center d-flex justify-content-end col-md-8">
+        <a asp-action="Index" asp-controller="Home">
+            <i style="font-size:36px; color:black; padding-top:35px; padding-right:425px;" class="fa">&#xf0a8;</i>
+        </a>
+        <div class="col-lg-6">
+            <br />
+            <h4 style="font-family:Poppins,sans-serif; font-weight:640; font-size:2.5rem">
+                <b>
+                    Namaste!
+                    <span style="color:#F28123; font-family:Poppins,sans-serif font-weight:640; font-size:2.5rem;">
+                        Login To Continue !
+                    </span>
+                </b>
+            </h4>
+        </div>
+    </div>
+    <div class="row" style="padding-bottom:50px">
+        <div class="col-lg-7" style="padding-left:50px">
+            <img class="login" src="~/img/Login-cuate.png" width="597px" height="597px" />
+        </div>
+
+        <div class="col-sm-5" style="padding-top:90px; padding-right=30px;">
+            @{
+                if (TempData["LoginFirst"] != null)
+                {
+                    <div class="alert alert-warning text-center d-grid justify-content-center col-8" role="alert">
+                        @TempData["LoginFirst"]
+                    </div>
+                }
+            }
+          
+            <form class="form-control d-grid" method="post">
+                <br />
+                <label asp-for=Username class="form-control-label"><b>Username</b></label>
+                <input asp-for="Username" type="text" class="form-control" style="width:429px" placeholder="Username" />
+                <span asp-validation-for="Username" style="color:red"></span>
+                <br />
+                <label asp-for="Password"><b>Password</b></label>
+                <input asp-for="Password" type="password" class="form-control" style="width:429px" placeholder="Password" />
+                <span asp-validation-for="Password" style="color:red"></span>
+                <br />
+                <input type="submit" class="btn orange btn-block" style="width:429px" value="Log In" />
+                <br />
+
+                <button formmethod="get" asp-action="Register" asp-controller="Auth" class="btn default" style="width:429px">
+                    Not a user? Register</button>
+                <br />
+                <p class="form-label"><b>Forgot Password? </b><a class="form-label" asp-action="ForgetPassword" asp-controller="Auth">Reset Password</a></p>
+            </form>
+
+            @{
+                <br />
+                if (TempData["Failed"] != null)
+                {
+                    <div class="col-lg-9 alert alert-danger" role="alert">
+                        @TempData["Failed"]
+                    </div>
+                }
+
+                if (TempData["ResetSuccess"] != null)
+                {
+                    <div class="col-lg-9 alert alert-success" role="alert">
+                        @TempData["ResetSuccess"]
+                    </div>
+                }
+
+
+            }
+
+        </div>
+
+        <div class="d-flex justify-content-center">
+            <p>
+                <b>
+                    Crafted With
+                    <span style="color:#F28123; "><span style="color:#DC143C">&hearts; </span>by Jaimin</span>
+                </b>
+            </p>
+        </div>
+
+    </div>
+
+    <script type="text/javascript" src="~/assets/js/script.js"></script>
+</body>
+</html>

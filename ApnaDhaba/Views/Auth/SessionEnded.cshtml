@@ -1,0 +1,44 @@
+﻿<body style="overflow:hidden">
+    <div class="row">
+
+        <div class="col">
+            <img src="~/img/sail boat-rafiki.png" width="720px" height="730px" />
+        </div>
+
+        <div class="col" style="padding-top:360px;">
+
+            <h4 style="font-family:Poppins,sans-serif; font-weight:640; font-size:2.5rem">
+                <b>
+                    Lookslike
+                    <span style="color:#F28123; font-family:Poppins,sans-serif font-weight:640; font-size:2.5rem;">
+                        @{
+                            if (TempData["SessionNotCreated"] != null)
+                            {
+                                @TempData["SessionNotCreated"]
+                            }
+
+                            if (TempData["SessionEnded"] != null)
+                            {
+                                @TempData["SessionEnded"]
+                            }
+
+                            if(TempData["APIDown"] != null)
+                            {
+                                @TempData["APIDown"]
+                            }
+                        }
+                    </span>
+                </b>
+            </h4>
+
+        </div>
+        <div class="d-flex justify-content-center">
+            <p>
+                <b>
+                    Crafted With
+                    <span style="color:#F28123; "><span style="color:#DC143C">&hearts; </span>by Jaimin</span>
+                </b>
+            </p>
+        </div>
+    </div>
+</body>

@@ -1,0 +1,31 @@
+﻿@model dualModel
+
+@{
+    List<Product>? m = Model.dualProductList;
+    List<Category>? c = Model.dualCatList;
+
+    foreach (var i in m)
+    {
+        foreach (var y in c)
+        {
+            if (i.CategoryId == y.CategoryId)
+            {
+                <div class="col-lg-4 col-md-6 text-center @y.Name">
+                    <div class="single-product-item">
+                        <div class="product-image">
+                            <a href="#"><img width="100px" height="270px" src="~/Menu/@i.ImagUrl"></img></a>
+                        </div>
+                        <h3>@i.Name</h3>
+                        <p class="product-price"><span></span> @i.Price ₹ </p>
+                        <form method="post">
+                         <input type="hidden" asp-for=dualProduct.ProductId value="@i.ProductId" /> 
+                         <input type="hidden" asp-for=dualProduct.Name value="@i.Name" /> 
+                         <input type="hidden" asp-for=dualProduct.Price value="@i.Price" /> 
+                       <input type="submit" class="btn btn-block orange" value="Add To Cart">
+                        </form>
+                    </div>
+                </div>
+            }
+        }
+    }
+}

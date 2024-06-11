@@ -1,0 +1,9 @@
+﻿@model List<Product>
+
+@{
+    foreach(var i in Model)
+    {
+        <div>@i.ProductId  @i.Name </div>
+
+    }
+}

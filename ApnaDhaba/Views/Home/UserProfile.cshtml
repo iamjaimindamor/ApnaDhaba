@@ -1,0 +1,156 @@
+﻿@model ApnaDhaba.Api_Models.UserModel
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+
+    .orange {
+        border-color: #F28123;
+        color: #F28123;
+    }
+
+        .orange:hover {
+            background: #F28123;
+            color: white;
+        }
+
+    .default {
+        border-color: black;
+        color: black;
+    }
+
+        .default:hover {
+            background: #1f1f1f;
+            color: snow;
+        }
+
+</style>
+
+<body style="overflow:hidden">
+    <div class="row">
+        <a asp-action="Index" asp-controller="Home">
+            <i style="font-size:36px; color:black; padding-top:15px; padding-left:25px" class="fa">&#xf0a8;</i>
+        </a>
+        <div class="col-md-5" style="padding-left:50px">
+            <img src="~/img/Profile data-amico.png" width="650px" height="660px" style="padding-left:50px;padding-top:15px" />
+            <p class="text-center">
+                <b>
+                    Crafted With
+                    <span style="color:#F28123; "><span style="color:#DC143C">&hearts; </span>by Jaimin</span>
+                </b>
+            </p>
+        </div>
+        <div class="col-lg-6" style="padding-left:120px;">
+            <h4 class="text-center" style="font-family:Poppins,sans-serif; font-weight:640; font-size:3rem">
+                User
+                <span style="color:#F28123; font-family:Poppins,sans-serif font-weight:640; font-size:3rem;">
+                    Profile
+                </span>
+            </h4>
+
+
+            @{
+                if (TempData["done"] == null)
+                {
+                    if (TempData["update"] != null)
+                    {
+                        <div class="col-lg-17 alert alert-success text-center justify-content-center" role="alert">
+                            @TempData["update"]
+                        </div>
+                    }
+                    if (TempData["updatedFailed"] != null)
+                    {
+                        <div class="col-lg-17 alert alert-danger text-center justify-content-center" role="alert">
+                            @TempData["updatedFailed"]
+                        </div>
+                    }
+                    if (TempData["PaymentAddress1"] != null)
+                    {
+                        <div class="col-lg-17 alert alert-danger text-center justify-content-center" role="alert">
+                            @TempData["PaymentAddress1"]
+                        </div>
+
+                    }
+                    <pre class="text-center">Hi..@ViewData["username"]</pre>
+                    <form method="post" class="text-center">
+                        <input type="hidden" value=0 asp-for="userId" />
+                        <input type="hidden" value="user1" asp-for="Firstname" />
+                        <input type="hidden" value=null asp-for="Lastname" />
+                        <input type="hidden" value=@ViewData["username"] asp-for="Username" />
+                        <input type="hidden" value="user3" asp-for="Password" />
+                        <input type="hidden" value=@DateTime.Now asp-for="CreateDate" />
+                        <input type="hidden" value=null asp-for="Address" />
+                        <input type="submit" class="btn orange btn-block" value="Fetch Details" />
+                        <br />
+                    </form>
+                    <br />
+                  
+                }
+                else
+                {
+                    if (TempData["PaymentAddress"] != null)
+                    {
+                        <div class="col-lg-17 alert alert-danger text-center justify-content-center" role="alert">
+                            @TempData["PaymentAddress"]
+                        </div>
+
+                    }
+                    <form class="form-control d-grid mx-auto" method="post" asp-action="Update">
+                        <div class="row">
+                            <div class="col">
+                                <label asp-for="Firstname" class="form-label">
+                                    <b>Firstname</b>
+                                </label>
+                                <input asp-for="Firstname" value=@Model.Firstname type="text" class="form-control" placeholder="Firstname" />
+                                <span asp-validation-for="Firstname" style="color:red"></span>
+                            </div>
+
+                            <div class="col">
+                                <label asp-for=Lastname class="form-label">
+                                    <b>Lastname</b>
+                                </label>
+                                <input asp-for="Lastname" value=@Model.Lastname type="text" class="form-control" placeholder="Lastname" />
+                                <span asp-validation-for="Lastname" style="color:red"></span>
+                            </div>
+
+                        </div>
+                        <br />
+                        <label asp-for="Username" class="form-label">
+                            <b>Username</b>
+                        </label>
+                        <input asp-for="Username" value=@Model.Username type="text" class="form-control" placeholder="Enter Username (e.x. iamsrk)" />
+                        <span asp-validation-for="Username" style="color:red"></span>
+                        <br />
+                        <label asp-for=Email class="form-label">
+                            <b>Email</b>
+                        </label>
+                        <input asp-for="Email" type="text" value=@Model.Email class="form-control" placeholder="e.x. misterindia@gmail.com" />
+                        <span asp-validation-for="Email" style="color:red"></span>
+                        <br />
+                        <label asp-for=Address class="form-label">
+                            <b>Address</b>
+                        </label>
+                        <input asp-for="Address" value=@Model.Address type="text" class="form-control" />
+                        <input asp-for="Password" value=null type="hidden" class="form-control" />
+                        <input asp-for="CreateDate" value=@Model.CreateDate type="hidden" class="form-control" />
+                        <span asp-validation-for="Address" style="color:red"></span>
+                        <br />
+                        <input asp-for="LastModifiedDate" value=@DateTime.Now type="hidden" class="form-control" />
+                        <input type="submit" class="btn orange btn-block" value="Save Changes" />
+                        <br />
+                        <button formmethod="get" asp-action="Reset" asp-controller="Auth" class="btn default btn-block">Reset Password</button>
+                        <br />
+                        <button asp-action="LogOut" asp-controller="Home" class="btn default btn-block text-center">Log Out</button>
+                        <br />
+                    </form>
+                    <br />
+                    <pre><i> Profile Created at @Model.CreateDate</i></pre>
+                    if (Model.LastModifiedDate != null)
+                    {
+                        <pre><i> Profile Last Modified at @Model.LastModifiedDate </i></pre>
+                    }
+                }
+            }
+        </div>
+    </div>
+</body>
+

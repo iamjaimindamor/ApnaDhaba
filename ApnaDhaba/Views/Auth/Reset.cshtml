@@ -1,0 +1,93 @@
+﻿@model ApnaDhaba.Models.Other.Reset
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+    .default {
+        border-color: #F28123;
+        color: #F28123;
+    }
+
+        .default:hover {
+            background-color: #F28123;
+            color: white;
+        }
+</style>
+
+<body style="overflow:hidden">
+
+    <div class="row" style="padding-left:45px; padding-top:30px">
+        <a asp-action="Login" asp-controller="Auth">
+            <i style="font-size:36px; color:black; padding-left:10px;" class="fa">&#xf0a8;</i>
+        </a>
+        
+
+        <div class="col-md-4" style="padding-left:40px; padding-top:120px">
+
+            <h4 style="font-family:Poppins,sans-serif; font-weight:520; font-size:3rem">
+                <b>
+                    Reset
+                    <span style="color:#F28123; font-family:Poppins,sans-serif font-weight:520; font-size:3rem;">
+                        Password
+                    </span>
+                </b>
+            </h4>
+
+            <br />
+            @{
+                if (TempData["SuccessReset"] != null)
+                {
+
+                    <div class="col-lg-9 alert alert-danger" role="alert">
+                        @TempData["SuccessReset"]
+                    </div>
+                }
+
+                if (TempData["confirmPasswordReset"] != null)
+                {
+                    <div class="col-lg-9 alert alert-warning" role="alert">
+                        @TempData["confirmPasswordReset"]
+                    </div>
+
+                }
+            }
+
+            <form class="form-control d-grid" method="post">
+
+                <br />
+
+                <label asp-for="Password" class="form-label"><b>New Password</b></label>
+                <input asp-for="Password" type="text" class="form-control" placeholder="Enter New Password" />
+
+                <br />
+
+                <label for="confirmPassword" class="form-label"><b>Confirm Password</b></label>
+                <input type="password" id="confirmPasswordd" name="confirmPassword" class="form-control" placeholder="Enter Confirm Password" />
+
+                <br />
+
+                <input type="submit" class="btn default btn-block" value="Reset the password" />
+
+                <br />
+
+            </form>
+
+        </div>
+
+        <div class="col-lg-5" style="padding-left:240px; padding-bottom:100px; padding-top:50px">
+
+            <br />
+
+            <img src="~/img/Reset password-bro.png" width="500px" height="500px" />
+
+        </div>
+
+        <div class="d-flex justify-content-center" style="padding-right:240px">
+            <p>
+                <b>
+                    Crafted With
+                    <span style="color:#F28123; "><span style="color:#DC143C">&hearts; </span>by Jaimin</span>
+                </b>
+            </p>
+        </div>
+    </div>
+</body>

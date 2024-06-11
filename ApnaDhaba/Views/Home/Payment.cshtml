@@ -1,0 +1,541 @@
+﻿@model MultiModel
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/css/bootstrap.min.css"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"></script>
+<body style="overflow-x: hidden; overflow-y:scroll;">
+    <div class="row">
+
+        <div class="col-md-6" style="padding-right:280px;">
+
+            <img src="~/img/Credit Card Payment-cuate.png" height="813px" width="690px" />
+
+        </div>
+
+        <div class="col-lg-6" style="padding-left:20px; padding-right:30px; padding-top:45px">
+            <h4 style="font-family:Poppins,sans-serif; font-weight:640; font-size:2.5rem" class="d-flex text-center justify-content-center">
+                <b>
+                    Payment
+                    <span style="color:#F28123; font-family:Poppins,sans-serif font-weight:640; font-size:2.5rem;">
+                        Summary!
+                    </span>
+                </b>
+            </h4>
+            <br />
+            <div class="card checkout-order-summary d-flex d-grid mx-auto justify-content-center">
+                <div class="card-body">
+                    <div class="p-3 bg-light mb-3">
+                        <h5 class="font-size-16 mb-0">Order Summary <span class="float-end ms-2">#@ViewBag.User</span></h5>
+                    </div>
+                    <div class="p-3 bg-light mb-3">
+                        <img src="~/assets/images/map.png" widht="35px" height="40px" /><span style="padding-left:20px">  @ViewBag.Address</span>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-centered mb-0 table-nowrap">
+                            <thead>
+                                <tr>
+                                    <th class="border-top-0" style="width: 110px;" scope="col">Product</th>
+                                    <th class="border-top-0" scope="col">Product Desc</th>
+                                    <th class="border-top-0" scope="col">Price</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{
+                                    foreach (var item in Model.cart)
+                                    {
+                                        foreach (var item2 in Model.Products)
+                                        {
+
+                                            if (item2.ProductId == item.ProductId)
+                                            {
+                                                <tr>
+                                                    <th scope="row"><img src="~/Menu/@item2.ImagUrl" alt="product-img" title="product-img" class="avatar-lg rounded"></th>
+                                                    <td>
+                                                        <h5 class="font-size-16 text-truncate"><a href="#" class="text-dark">@item2.Name</a></h5>
+                                                        <p class="text-muted mb-0">
+                                                            <i class="bx bxs-star text-warning"></i>
+                                                            <i class="bx bxs-star text-warning"></i>
+                                                            <i class="bx bxs-star text-warning"></i>
+                                                            <i class="bx bxs-star text-warning"></i>
+                                                            <i class="bx bxs-star-half text-warning"></i>
+                                                        </p>
+                                                        <p class="text-muted mb-0 mt-1">₹ @item2.Price x @item.Quantity</p>
+                                                    </td>
+                                                    <td>₹ @item.TotalPrice</td>
+                                                </tr>
+                                            }
+                                        }
+                                    }
+                                }
+                            <td colspan="2">
+                                <h5 class="font-size-14 m-0">Sub Total :</h5>
+                            </td>
+                            <td>
+                                ₹ @ViewBag.subtotal
+                            </td>
+                            </tr>
+
+
+                            <tr>
+                                <td colspan="2">
+                                    <h5 class="font-size-14 m-0">Shipping Charge :</h5>
+                                </td>
+                                <td>
+                                    ₹ 40.00
+                                </td>
+                            </tr>
+
+
+                            <tr class="bg-light">
+                                <td colspan="2">
+                                    <h5 class="font-size-14 m-0">Total:</h5>
+                                </td>
+                                <td>
+                                    ₹ @ViewBag.total
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+
+                </div>
+                <br />
+
+                <div class="row justify-content-center d-flex text-center">
+                    <div class="col" style="padding-left:150px">
+                        <a class="btn btn-block default" asp-action="Cart" asp-controller="Home">
+                            Add More Item
+                        </a>
+                    </div>
+                    <div class="col" style="padding-right:150px">
+                        <button type="button" class="btn btn-block orange" data-toggle="modal" data-target="#staticBackdrop">
+                            <i class="fa fa-rocket"></i> Pay Now ₹@ViewBag.total
+                        </button>
+                    </div>
+                    <!-- Modal -->
+                    <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-body">
+                                    <div class="text-right"> <i class="fa fa-close close" data-dismiss="modal"></i> </div> <div class="tabs mt-3">
+                                        <ul class="nav nav-tabs" id="myTab" role="tablist"> <li class="nav-item" role="presentation"> <a class="nav-link active" id="visa-tab" data-toggle="tab" href="#visa" role="tab" aria-controls="visa" aria-selected="true"> <img src="~/img/visa-10.jpg" width="80"> </a> </li> <li class="nav-item" role="presentation"> <a class="nav-link" id="paypal-tab" data-toggle="tab" href="#paypal" role="tab" aria-controls="paypal" aria-selected="false"> <img src="~/img/phonepe-logo.jpg" width="80"> </a> </li> </ul> <div class="tab-content" id="myTabContent">
+                                            <div class="tab-pane fade show active" id="visa" role="tabpanel" aria-labelledby="visa-tab"> <div class="mt-4 mx-4"> <div class="text-center"> <h5>Credit card</h5> </div> <form asp-action="PaySuccessCard" method="post"><div class="form mt-3"> <div class="inputbox"> <input type="text" name="cardname" class="form-control" required="required"> <span>Cardholder Name</span> </div> <div class="inputbox"> <input type="text" name="cardnum" min="1" max="999" class="form-control" required="required"> <span>Card Number</span> <i class="fa fa-eye"></i> </div> <div class="d-flex flex-row"> <div class="inputbox"> <input type="text" name="expiry" min="1" max="999" class="form-control" required="required"> <span>Expiration Date</span> </div> <div class="inputbox"> <input type="text" name="cvv" min="1" max="999" class="form-control" required="required"> <span>CVV</span> </div> </div> <div class="px-5 pay"> <button type="submit" class="btn btn visa btn-block">Add card & Pay ₹@ViewBag.total</button> </div> </div> </form></div> </div> <div class="tab-pane fade" id="paypal" role="tabpanel" aria-labelledby="paypal-tab"> <div class="px-5 mt-5"> <form asp-action="PaySuccessUPI"><div class="inputbox"> <input type="text" name="upiID" class="form-control" required="required"> <span>Enter UPI ID</span> </div> <div class="pay px-5"> <button type="submit" class="btn btn phonepe btn-block">Add UPI ID & Pay ₹@ViewBag.total </button> </form></div> </div>
+
+                                        </div>
+                                    </div> <br />  <a asp-action="Payment" asp-controller="Home"> close </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <br />
+        </div>
+        <div class="d-flex justify-content-center">
+            <p>
+                <b>
+                    Crafted With
+                    <span style="color:#F28123; "><span style="color:#DC143C">&hearts; </span>by Jaimin</span>
+                </b>
+            </p>
+        </div>
+    </div>
+    </div>
+
+
+    </div>
+
+    </div>
+</body>
+<style>
+
+    .orange {
+        border-color: #F28123;
+        color: #F28123;
+    }
+
+        .orange:hover {
+            background: #F28123;
+            color: white;
+        }
+
+    .visa {
+        border-color: #1A1F71;
+        color: #1A1F71;
+    }
+
+        .visa:hover {
+            background: #1A1F71;
+            color: white
+        }
+
+    .phonepe {
+        border-color: #6739B7;
+        color: #6739B7;
+    }
+
+        .phonepe:hover {
+            background: #6739B7;
+            color: white;
+        }
+
+    body {
+        margin-top: 20px;
+        background-color: #f1f3f7;
+    }
+
+    .card {
+        margin-bottom: 24px;
+        -webkit-box-shadow: 0 2px 3px #e4e8f0;
+        box-shadow: 0 2px 3px #e4e8f0;
+    }
+
+    .card {
+        position: relative;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+        flex-direction: column;
+        min-width: 0;
+        word-wrap: break-word;
+        background-color: #fff;
+        background-clip: border-box;
+        border: 1px solid #eff0f2;
+        border-radius: 1rem;
+    }
+
+    .activity-checkout {
+        list-style: none
+    }
+
+        .activity-checkout .checkout-icon {
+            position: absolute;
+            top: -4px;
+            left: -24px
+        }
+
+        .activity-checkout .checkout-item {
+            position: relative;
+            padding-bottom: 24px;
+            padding-left: 35px;
+            border-left: 2px solid #f5f6f8
+        }
+
+            .activity-checkout .checkout-item:first-child {
+                border-color: #3b76e1
+            }
+
+                .activity-checkout .checkout-item:first-child:after {
+                    background-color: #3b76e1
+                }
+
+            .activity-checkout .checkout-item:last-child {
+                border-color: transparent
+            }
+
+            .activity-checkout .checkout-item.crypto-activity {
+                margin-left: 50px
+            }
+
+            .activity-checkout .checkout-item .crypto-date {
+                position: absolute;
+                top: 3px;
+                left: -65px
+            }
+
+
+
+    .avatar-xs {
+        height: 1rem;
+        width: 1rem
+    }
+
+    .avatar-sm {
+        height: 2rem;
+        width: 2rem
+    }
+
+    .avatar {
+        height: 3rem;
+        width: 3rem
+    }
+
+    .avatar-md {
+        height: 4rem;
+        width: 4rem
+    }
+
+    .avatar-lg {
+        height: 5rem;
+        width: 5rem
+    }
+
+    .avatar-xl {
+        height: 6rem;
+        width: 6rem
+    }
+
+    .avatar-title {
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        background-color: #3b76e1;
+        color: #fff;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        font-weight: 500;
+        height: 100%;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        justify-content: center;
+        width: 100%
+    }
+
+    .avatar-group {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+        padding-left: 8px
+    }
+
+        .avatar-group .avatar-group-item {
+            margin-left: -8px;
+            border: 2px solid #fff;
+            border-radius: 50%;
+            -webkit-transition: all .2s;
+            transition: all .2s
+        }
+
+            .avatar-group .avatar-group-item:hover {
+                position: relative;
+                -webkit-transform: translateY(-2px);
+                transform: translateY(-2px)
+            }
+
+    .card-radio {
+        background-color: #fff;
+        border: 2px solid #eff0f2;
+        border-radius: .75rem;
+        padding: .5rem;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        display: block
+    }
+
+        .card-radio:hover {
+            cursor: pointer
+        }
+
+    .card-radio-label {
+        display: block
+    }
+
+    .edit-btn {
+        width: 35px;
+        height: 35px;
+        line-height: 40px;
+        text-align: center;
+        position: absolute;
+        right: 25px;
+        margin-top: -50px
+    }
+
+    .card-radio-input {
+        display: none
+    }
+
+        .card-radio-input:checked + .card-radio {
+            border-color: #3b76e1 !important
+        }
+
+
+    .font-size-16 {
+        font-size: 16px !important;
+    }
+
+    .text-truncate {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    a {
+        text-decoration: none !important;
+    }
+
+
+    .form-control {
+        display: block;
+        width: 100%;
+        padding: 0.47rem 0.75rem;
+        font-size: .875rem;
+        font-weight: 400;
+        line-height: 1.5;
+        color: #545965;
+        background-color: #fff;
+        background-clip: padding-box;
+        border: 1px solid #e2e5e8;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        border-radius: 0.75rem;
+        -webkit-transition: border-color .15s ease-in-out,-webkit-box-shadow .15s ease-in-out;
+        transition: border-color .15s ease-in-out,-webkit-box-shadow .15s ease-in-out;
+        transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+        transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out,-webkit-box-shadow .15s ease-in-out;
+    }
+
+    .edit-btn {
+        width: 35px;
+        height: 35px;
+        line-height: 40px;
+        text-align: center;
+        position: absolute;
+        right: 25px;
+        margin-top: -50px;
+    }
+
+    .ribbon {
+        position: absolute;
+        right: -26px;
+        top: 20px;
+        -webkit-transform: rotate(45deg);
+        transform: rotate(45deg);
+        color: #fff;
+        font-size: 13px;
+        font-weight: 500;
+        padding: 1px 22px;
+        font-size: 13px;
+        font-weight: 500
+    }
+
+    body {
+        height: 100vh;
+        justify-content: center;
+        align-items: center;
+        display: flex;
+        background-color: #eee
+    }
+
+    .launch {
+        height: 50px
+    }
+
+    .close {
+        font-size: 21px;
+        cursor: pointer
+    }
+
+    .modal-body {
+        height: 450px
+    }
+
+    .nav-tabs {
+        border: none !important
+    }
+
+        .nav-tabs .nav-link.active {
+            color: #495057;
+            background-color: #fff;
+            border-color: #ffffff #ffffff #fff;
+            border-top: 3px solid black !important
+        }
+
+        .nav-tabs .nav-link {
+            margin-bottom: -1px;
+            border: 1px solid transparent;
+            border-top-left-radius: 0rem;
+            border-top-right-radius: 0rem;
+            border-top: 3px solid #eee;
+            font-size: 20px
+        }
+
+            .nav-tabs .nav-link:hover {
+                border-color: #e9ecef #ffffff #ffffff
+            }
+
+    .nav-tabs {
+        display: table !important;
+        width: 100%
+    }
+
+    .nav-item {
+        display: table-cell
+    }
+
+    .form-control {
+        border-bottom: 1px solid #eee !important;
+        border: none;
+        font-weight: 600
+    }
+
+        .form-control:focus {
+            color: #495057;
+            background-color: #fff;
+            border-color: #8bbafe;
+            outline: 0;
+            box-shadow: none
+        }
+
+    .inputbox {
+        position: relative;
+        margin-bottom: 20px;
+        width: 100%
+    }
+
+        .inputbox span {
+            position: absolute;
+            top: 7px;
+            left: 11px;
+            transition: 0.5s
+        }
+
+        .inputbox i {
+            position: absolute;
+            top: 13px;
+            right: 8px;
+            transition: 0.5s;
+            color: #3F51B5
+        }
+
+    input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0
+    }
+
+    .inputbox input:focus ~ span {
+        transform: translateX(-0px) translateY(-15px);
+        font-size: 12px
+    }
+
+    .inputbox input:valid ~ span {
+        transform: translateX(-0px) translateY(-15px);
+        font-size: 12px
+    }
+
+    .pay button {
+        height: 47px;
+        border-radius: 37px
+    }
+
+    .default {
+        border-color: black;
+        color: black;
+    }
+
+        .default:hover {
+            background: #1f1f1f;
+            color: snow;
+        }
+
+</style>
