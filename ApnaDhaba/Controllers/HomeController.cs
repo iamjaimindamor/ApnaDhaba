@@ -194,30 +194,57 @@ namespace ApnaDhaba.Controllers
             }
         }
 
+
         [HttpPost]
         public IActionResult min(int id, decimal quant)
         {
-            var user = HttpContext.Session.GetString("AuthUser");
-            var data = dbContext.Carts.FirstOrDefault(x => x.ProductId == id && x.Username == user);
-            var productPrice = dbContext.Products.FirstOrDefault(x => x.ProductId == data.ProductId);
-
-            if (data.Quantity >= 1 && data.Quantity <= 10)
+            if (HttpContext.Session.GetString("AuthUser") != null)
             {
-                data.Quantity = quant - 1;
-                data.TotalPrice = data.Quantity * productPrice.Price;
+                var user = HttpContext.Session.GetString("AuthUser");
+                var data = dbContext.Carts.FirstOrDefault(x => x.ProductId == id && x.Username == user);
+                var productPrice = dbContext.Products.FirstOrDefault(x => x.ProductId == data.ProductId);
+                if (data.Quantity >= 1 && data.Quantity <= 10)
+                {
+                    data.Quantity = quant - 1;
+                    data.TotalPrice = data.Quantity * productPrice.Price;
 
-                dbContext.Carts.Update(data);
-                dbContext.SaveChanges();
+                    dbContext.Carts.Update(data);
+                    dbContext.SaveChanges();
+                }
+                if (data.Quantity == 0)
+                {
+                    dbContext.Carts.Remove(data);
+                    dbContext.SaveChanges();
+                    TempData["Limit"] = "Item Removed From The Cart";
+                }
+
+                Calculate();
+                return RedirectToAction("Cart");
             }
-            if (data.Quantity == 0)
+            else if (HttpContext.Session.GetString("Guest") != null)
             {
-                dbContext.Carts.Remove(data);
-                dbContext.SaveChanges();
-                TempData["Limit"] = "Item Removed From The Cart";
-            }
+                var user = HttpContext.Session.GetString("Guest");
+                var data = dbContext.Carts.FirstOrDefault(x => x.ProductId == id && x.Username == user);
+                var productPrice = dbContext.Products.FirstOrDefault(x => x.ProductId == data.ProductId);
+                if (data.Quantity >= 1 && data.Quantity <= 10)
+                {
+                    data.Quantity = quant - 1;
+                    data.TotalPrice = data.Quantity * productPrice.Price;
 
-            Calculate();
-            return RedirectToAction("Cart");
+                    dbContext.Carts.Update(data);
+                    dbContext.SaveChanges();
+                }
+                if (data.Quantity == 0)
+                {
+                    dbContext.Carts.Remove(data);
+                    dbContext.SaveChanges();
+                    TempData["Limit"] = "Item Removed From The Cart";
+                }
+
+                Calculate();
+                return RedirectToAction("Cart");
+            }
+            else return RedirectToAction("_NotFound", "Auth");
         }
 
         [HttpPost]
