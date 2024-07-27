@@ -62,3 +62,10 @@ Explore More at : <a href="https://jwt.io/">Click Here </a>
 ## 🪶Build Using Following technology and tools :
  <img src="https://upload.wikimedia.org/wikipedia/commons/7/7d/Microsoft_.NET_logo.svg" width="52px" height="52px"/> &nbsp; <img src="https://github.com/coherencez/tech-logos/blob/master/html5.png?raw=true" width="52px" height="52px"/> &nbsp; <img src="https://github.com/coherencez/tech-logos/blob/master/css3.png?raw=true" width="41px" height="52px"/>
 &nbsp; &nbsp;<img src="https://github.com/coherencez/tech-logos/blob/master/bootstrap.png?raw=true" width="48px" height="48px"/> &nbsp;
+
+## ✍️ Credit & References :
+
+Bootstrap Template That I've used for Views (FrontEnd) : <a href="https://themewagon.com/themes/fruitkha-free-bootstrap-4-responsive-food-business-template/">Template Link </a>
+
+Story Telling Images : <a href="https://storyset.com/">Story Set</a>
+
