@@ -37,10 +37,6 @@ Click Here ⇢ <a href="https://github.com/iamjaimindamor/ApnaDhaba-API">ApnaDha
 
 ⟹ In this project API Call are Authenticated and Authorized using jwt package.
 
-⟹ jwt stands for JSON Web Token
-
-⟹ JSON Web Tokens are an open, industry standard RFC 7519 method for representing claims securely between two parties.
-
 Explore More at : <a href="https://jwt.io/">Click Here </a>
 
 <br>
