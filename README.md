@@ -1,7 +1,7 @@
 # ApnaDhaba - a food ordering application
 
 
-⟹ ApnaDhaba is MVC Web Application implmented along with Core Web API. 
+⟹ ApnaDhaba is MVC Web Application implemented along with Core Web API. 
 <br>
 
 ## 🚀 Lets Gets Started
